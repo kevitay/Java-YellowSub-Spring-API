@@ -1,12 +1,16 @@
 package com.galvanize.yellowsub;
 
+import java.util.UUID;
+
 public class Sandwich {
+    private UUID orderNumber;
     private String bread;
     private String veggies [];
     private String meats [];
     private String condiments [];
 
     public Sandwich(String bread, String[] veggies, String[] meats, String[] condiments) {
+        this.orderNumber = UUID.randomUUID();
         this.bread = bread;
         this.veggies = veggies;
         this.meats = meats;
@@ -43,5 +47,13 @@ public class Sandwich {
 
     public void setCondiments(String[] condiments) {
         this.condiments = condiments;
+    }
+
+    public UUID getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(UUID orderNumber) {
+        this.orderNumber = orderNumber;
     }
 }
