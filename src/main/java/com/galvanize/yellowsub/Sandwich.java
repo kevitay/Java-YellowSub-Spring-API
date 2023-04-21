@@ -10,6 +10,7 @@ public class Sandwich {
     private String condiments [];
 
     public Sandwich() {
+        this.orderNumber = UUID.randomUUID();
     }
 
     public Sandwich(String bread, String[] veggies, String[] meats, String[] condiments) {
