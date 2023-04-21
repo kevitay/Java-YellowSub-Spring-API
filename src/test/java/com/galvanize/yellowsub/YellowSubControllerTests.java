@@ -136,15 +136,15 @@ public void addSandwichWithNoOrderNo() throws Exception {
                 .andExpect(jsonPath("$.meats[1]").value("turkey"))
                 .andExpect(jsonPath("$.condiments[0]").value("mayo"));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/sandwich"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/sandwich/53cd99f1-9dab-4dae-86e1-f4bdc90fe3a4"))
                 .andDo(print())
-                .andExpect(jsonPath("$[0].orderNumber").value("53cd99f1-9dab-4dae-86e1-f4bdc90fe3a4"))
-                .andExpect(jsonPath("$[0].bread").value("white"))
-                .andExpect(jsonPath("$[0].veggies[0]").value("lettuce"))
-                .andExpect(jsonPath("$[0].veggies[1]").value("tomato"))
-                .andExpect(jsonPath("$[0].meats[0]").value("ham"))
-                .andExpect(jsonPath("$[0].meats[1]").value("turkey"))
-                .andExpect(jsonPath("$[0].condiments[0]").value("mayo"));
+                .andExpect(jsonPath("$.orderNumber").value("53cd99f1-9dab-4dae-86e1-f4bdc90fe3a4"))
+                .andExpect(jsonPath("$.bread").value("white"))
+                .andExpect(jsonPath("$.veggies[0]").value("lettuce"))
+                .andExpect(jsonPath("$.veggies[1]").value("tomato"))
+                .andExpect(jsonPath("$.meats[0]").value("ham"))
+                .andExpect(jsonPath("$.meats[1]").value("turkey"))
+                .andExpect(jsonPath("$.condiments[0]").value("mayo"));
     }
 
 

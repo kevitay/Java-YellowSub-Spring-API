@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/sandwich")
@@ -16,6 +17,17 @@ public class YellowSubController {
     @GetMapping("")
     public List<Sandwich> getAllSandwiches() {
         return sandwiches;
+    }
+
+    @GetMapping("/{orderNumber}")
+    public Sandwich getOrderInfo(@PathVariable UUID orderNumber) {
+        Sandwich orderedSandwich = null;
+        for (Sandwich sandwich : sandwiches) {
+            if (sandwich.getOrderNumber().equals(orderNumber)) {
+                orderedSandwich = sandwich;
+            }
+        }
+        return orderedSandwich;
     }
 
     @PostMapping("")
