@@ -21,4 +21,6 @@ public class YellowSubControllerTests {
                 .andDo(print())
                 .andExpect(jsonPath("$",hasSize(0)));
     }
+
+    @Test
 }
