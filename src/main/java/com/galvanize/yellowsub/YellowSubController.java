@@ -36,5 +36,12 @@ public class YellowSubController {
         return new ResponseEntity<Sandwich>(sandwich, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/reset")
+    public List<Sandwich> resetList() {
+        //clear the list
+        sandwiches.clear();
+        return sandwiches;
+    }
+
 }
 

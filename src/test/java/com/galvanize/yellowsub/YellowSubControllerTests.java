@@ -1,6 +1,7 @@
 package com.galvanize.yellowsub;
 
 import com.jayway.jsonpath.JsonPath;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -24,6 +25,26 @@ public class YellowSubControllerTests {
     @Autowired
     MockMvc mockMvc;
 
+    String sandwichJson = "{\n" +
+            "  \"bread\": \"white\",\n" +
+            "  \"veggies\": [\n" +
+            "    \"lettuce\",\n" +
+            "    \"tomato\"\n" +
+            "  ],\n" +
+            "  \"meats\": [\n" +
+            "    \"ham\",\n" +
+            "    \"turkey\"\n" +
+            "  ],\n" +
+            "  \"condiments\": [\n" +
+            "    \"mayo\"\n" +
+            "  ]\n" +
+            "}";
+
+    @BeforeEach
+    public void resetData() throws Exception {
+        mockMvc.perform(delete("/api/sandwich/reset"));
+    }
+
     @Test
     public void getAllSandwiches() throws Exception {
         mockMvc.perform(get("/api/sandwich"))
@@ -33,20 +54,6 @@ public class YellowSubControllerTests {
 
     @Test
     public void addSandwichWithSampleData() throws Exception {
-        String sandwichJson = "{\n" +
-                "  \"bread\": \"white\",\n" +
-                "  \"veggies\": [\n" +
-                "    \"lettuce\",\n" +
-                "    \"tomato\"\n" +
-                "  ],\n" +
-                "  \"meats\": [\n" +
-                "    \"ham\",\n" +
-                "    \"turkey\"\n" +
-                "  ],\n" +
-                "  \"condiments\": [\n" +
-                "    \"mayo\"\n" +
-                "  ]\n" +
-                "}";
         mockMvc.perform(post("/api/sandwich")
                         .contentType(MediaType.APPLICATION_JSON).content(sandwichJson))
                 .andDo(print())
@@ -71,20 +78,6 @@ public class YellowSubControllerTests {
 //    Then the returned JSON should have an "orderNumber" that is a UUID.
 @Test
 public void addSandwichWithNoOrderNo() throws Exception {
-    String sandwichJson = "{\n" +
-            "  \"bread\": \"white\",\n" +
-            "  \"veggies\": [\n" +
-            "    \"lettuce\",\n" +
-            "    \"tomato\"\n" +
-            "  ],\n" +
-            "  \"meats\": [\n" +
-            "    \"ham\",\n" +
-            "    \"turkey\"\n" +
-            "  ],\n" +
-            "  \"condiments\": [\n" +
-            "    \"mayo\"\n" +
-            "  ]\n" +
-            "}";
     mockMvc.perform(post("/api/sandwich")
                     .contentType(MediaType.APPLICATION_JSON).content(sandwichJson))
             .andDo(print())
@@ -109,8 +102,8 @@ public void addSandwichWithNoOrderNo() throws Exception {
     }
 
     @Test
-    public void canReceiveSandwichWithOrderNumber() throws Exception {
-        String sandwichJson = "{\n" +
+    public void findSandwichByOrderNumber() throws Exception {
+        String sandwichJsonWithOrderNum = "{\n" +
                 "  \"orderNumber\": \"53cd99f1-9dab-4dae-86e1-f4bdc90fe3a4\",\n" +
                 "  \"bread\": \"white\",\n" +
                 "  \"veggies\": [\n" +
@@ -125,8 +118,9 @@ public void addSandwichWithNoOrderNo() throws Exception {
                 "    \"mayo\"\n" +
                 "  ]\n" +
                 "}";
+
         mockMvc.perform(post("/api/sandwich")
-                        .contentType(MediaType.APPLICATION_JSON).content(sandwichJson))
+                        .contentType(MediaType.APPLICATION_JSON).content(sandwichJsonWithOrderNum))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.orderNumber").value("53cd99f1-9dab-4dae-86e1-f4bdc90fe3a4"))
@@ -149,20 +143,6 @@ public void addSandwichWithNoOrderNo() throws Exception {
     }
     @Test
     public void addThreeSandwichWithNoOrderNo() throws Exception {
-        String sandwichJson = "{\n" +
-                "  \"bread\": \"white\",\n" +
-                "  \"veggies\": [\n" +
-                "    \"lettuce\",\n" +
-                "    \"tomato\"\n" +
-                "  ],\n" +
-                "  \"meats\": [\n" +
-                "    \"ham\",\n" +
-                "    \"turkey\"\n" +
-                "  ],\n" +
-                "  \"condiments\": [\n" +
-                "    \"mayo\"\n" +
-                "  ]\n" +
-                "}";
         String cornBeefJson = "{\n" +
                 "  \"bread\": \"rye\",\n" +
                 "  \"veggies\": [\n" +
