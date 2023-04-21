@@ -9,8 +9,19 @@ public class Sandwich {
     private String meats [];
     private String condiments [];
 
+    public Sandwich() {
+    }
+
     public Sandwich(String bread, String[] veggies, String[] meats, String[] condiments) {
         this.orderNumber = UUID.randomUUID();
+        this.bread = bread;
+        this.veggies = veggies;
+        this.meats = meats;
+        this.condiments = condiments;
+    }
+
+    public Sandwich(UUID orderNumber, String bread, String[] veggies, String[] meats, String[] condiments) {
+        this.orderNumber = orderNumber;
         this.bread = bread;
         this.veggies = veggies;
         this.meats = meats;
