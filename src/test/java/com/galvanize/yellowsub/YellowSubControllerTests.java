@@ -44,8 +44,8 @@ public class YellowSubControllerTests {
         mockMvc.perform(post("/api/sandwich")
                         .contentType(MediaType.APPLICATION_JSON).content(sandwichJson))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].bread").value("white"));
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.bread").value("white"));
 
     }
 }

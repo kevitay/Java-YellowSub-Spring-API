@@ -1,8 +1,8 @@
 package com.galvanize.yellowsub;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,11 @@ public class YellowSubController {
         return sandwiches;
     }
 
-
+    @PostMapping("")
+    public ResponseEntity<Sandwich> addNewSandwich(@RequestBody Sandwich sandwich) {
+        sandwiches.add(sandwich);
+        return new ResponseEntity<Sandwich>(sandwich, HttpStatus.CREATED);
+    }
 
 }
 
