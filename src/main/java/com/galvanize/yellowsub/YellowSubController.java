@@ -36,6 +36,13 @@ public class YellowSubController {
         return new ResponseEntity<Sandwich>(sandwich, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/delete/{orderNumber}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void deleteSandwich(@PathVariable UUID orderNumber) {
+        sandwiches.removeIf(sandwich -> sandwich.getOrderNumber() == orderNumber);
+    }
+
+
     @DeleteMapping("/reset")
     public List<Sandwich> resetList() {
         //clear the list

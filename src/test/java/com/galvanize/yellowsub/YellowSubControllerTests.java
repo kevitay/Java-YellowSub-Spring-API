@@ -230,10 +230,36 @@ public void addSandwichWithNoOrderNo() throws Exception {
                 .andExpect(jsonPath("$[2].condiments[2]").value("pepper"))
                 .andExpect(jsonPath("$[2].condiments[3]").value("american cheese"))
                 .andExpect(jsonPath("$[2].condiments[4]").value("extra american cheese"));
-
-
     }
 
+    @Test
+    public void deleteSandwichByOrderNumber() throws Exception {
+        String sandwichJsonWithOrderNum = "{\n" +
+                "  \"orderNumber\": \"53cd99f1-9dab-4dae-86e1-f4bdc90fe3a4\",\n" +
+                "  \"bread\": \"white\",\n" +
+                "  \"veggies\": [\n" +
+                "    \"lettuce\",\n" +
+                "    \"tomato\"\n" +
+                "  ],\n" +
+                "  \"meats\": [\n" +
+                "    \"ham\",\n" +
+                "    \"turkey\"\n" +
+                "  ],\n" +
+                "  \"condiments\": [\n" +
+                "    \"mayo\"\n" +
+                "  ]\n" +
+                "}";
+
+        mockMvc.perform(post("/api/sandwich")
+                        .contentType(MediaType.APPLICATION_JSON).content(sandwichJsonWithOrderNum))
+                .andDo(print())
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(delete("/api/sandwich/delete/53cd99f1-9dab-4dae-86e1-f4bdc90fe3a4"))
+                .andDo(print())
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.orderNumber").doesNotExist());
+    }
 
 
 }
